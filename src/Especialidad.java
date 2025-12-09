@@ -1,4 +1,9 @@
-package PACKAGE_NAME;
-
 public enum Especialidad {
+    CARDIOLOGIA,
+    NEUROLOGIA,
+    PEDIATRIA,
+    TRAUMOTOLOGIA,
+    OFTALMOLOGIA,
+    DERMATOLOGIA,
+    GASTROENTEROLOGIA,
 }

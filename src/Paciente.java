@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
-
 public class Paciente {
+
+    String nombre;
+    String dni;
+    String email;
+
 }
