@@ -1,3 +1,5 @@
+package Modelo;
+
 public enum Especialidad {
     CARDIOLOGIA,
     NEUROLOGIA,

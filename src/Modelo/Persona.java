@@ -1,13 +1,15 @@
+package Modelo;
+
 public class Persona {
 
 
-    //atributos de la clase Persona
+    //atributos de la clase modelo.Persona
     protected String nombre;
     protected String dni;
     protected String email;
     protected String direccion;
 
-    //constructor de la clase Persona
+    //constructor de la clase modelo.Persona
     public Persona(String nombre, String dni, String email, String direccion) {
         this.nombre = nombre;
         this.dni = dni;
@@ -50,10 +52,10 @@ public class Persona {
         this.email = email;
     }
 
-    //toString de la clase Persona
+    //toString de la clase modelo.Persona
     @Override
     public String toString() {
-        return "Persona{" +
+        return "modelo.Persona{" +
                 "nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
                 ", email='" + email + '\'' +
