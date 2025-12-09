@@ -42,4 +42,8 @@ abstract class EntradaHistorial {
         this.causa = causa;
     }
 
+    // Metodo abstracto que deben implementar las subclases
+    //esto me daba error si no lo ponia public
+    public abstract String getTipo();
+
 }
