@@ -3,14 +3,14 @@ package Modelo;
 public class Paciente extends Persona {
 
   private HistorialMedico historial;  //asigancion de medico
-  private Medico medicoAsigando;      // medico seleccionado que usaremos
+  private Medico medicoAsignado;      // medico seleccionado que usaremos
 
     //Constructor
 
     public Paciente(String nombre,String dni,String email,String direccion){
         super(nombre, dni, email, direccion);  //atributos de la clase madre
         this.historial=new HistorialMedico();   //creamos un historial vacio
-        this.medicoAsigando=null;               //Decimos que es null por que al principio no tendra
+        this.medicoAsignado=null;               //Decimos que es null por que al principio no tendra
     }
 
     //Getters Y Setters
@@ -24,12 +24,12 @@ public class Paciente extends Persona {
         this.historial = historial;
     }
 
-    public Medico getMedicoAsigando() {
-        return medicoAsigando;
+    public Medico getMedicoAsignado() {
+        return medicoAsignado;
     }
 
-    public void setMedicoAsigando(Medico medicoAsigando) {
-        this.medicoAsigando = medicoAsigando;
+    public void setMedicoAsignado(Medico medicoAsignado) {
+        this.medicoAsignado = medicoAsignado;
     }
 
     //metodo ToString
@@ -39,7 +39,7 @@ public class Paciente extends Persona {
     public String toString() {
         return "Paciente{" +
                 "historial=" + historial +
-                ", medicoAsigando=" + medicoAsigando +
+                ", medicoAsignado=" + medicoAsignado +
                 ", nombre='" + nombre + '\'' +
                 ", dni='" + dni + '\'' +
                 ", email='" + email + '\'' +
