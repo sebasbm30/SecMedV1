@@ -3,7 +3,7 @@ package Modelo;
 import java.time.LocalDate;
 
 //Abstract por que PruebaMedica y ConsultaMedica van a heredar de esta clase
-abstract class EntradaHistorial {
+public abstract class EntradaHistorial {
     protected LocalDate fecha;
     protected String idMedico;
     protected String causa;
