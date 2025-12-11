@@ -8,4 +8,5 @@ public enum Especialidad {
     OFTALMOLOGIA,
     DERMATOLOGIA,
     GASTROENTEROLOGIA,
+    GENERAL,
 }

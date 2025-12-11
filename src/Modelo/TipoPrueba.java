@@ -7,5 +7,6 @@ public enum TipoPrueba {
     BIOPSIA,
     ELECTROCARDIOGRAMA,
     RESONANCIA,
+    ANALISIS_SANGRE,
     TAC
 }
