@@ -73,7 +73,7 @@ public class Controlador {   //va hacer el intermediario entre la vista y el mod
     }
 
     //metodo para saber la lista de pacientes
-    public void ListarPacientes(){
+    public void listarPacientes(){
         if(pacientes.isEmpty()){   //si la lista de pacientes esta vacia
             vista.mostrarMensaje("No aparecen pacientes registrados.");   //mostramos un mensaje de que no hay pacientes registrados
         } else {      //si hay pacientes registrados
@@ -85,7 +85,7 @@ public class Controlador {   //va hacer el intermediario entre la vista y el mod
     }
 
     //metodo para saber la lista de medicos
-    public void ListarMedicos() {
+    public void listarMedicos() {
         if (medicos.isEmpty()) {   //si la lista de medicos esta vacia
             vista.mostrarMensaje("No aparecen medicos registrados.");   //mostramos un mensaje de que no hay medicos registrados
         } else {      //si hay medicos registrados
@@ -96,18 +96,31 @@ public class Controlador {   //va hacer el intermediario entre la vista y el mod
         }
     }
 
+    //metodo para asignar un medico a un paciente
+    public void asignarMedicoAPaciente(int indicePaciente, int indiceMedico) {
+        Paciente p = getPaciente(indicePaciente);  //obtenemos el paciente
+        Medico m = getMedico(indiceMedico);  //obtenemos el medico
+
+        if(p != null && m != null && !administrativos.isEmpty()) {  //si existen ambos
+            Administrativo admin = administrativos.get(0);  //obtenemos el primer administrativo
+            admin.asignarMedico(p, m);  //el administrativo asigna el medico al paciente
+        } else {
+            vista.mostrarMensaje("EL Paciente, medico o administrativo no se encontraron");
+        }
+    }
+
     //metodo para registrar prueba medica
     public void registrarPruebaMedia(int indicePaciente, LocalDate fecha, String idMedico, String causa, TipoPrueba tipoPrueba,
                                      String resultado){  //atributos que hereda de la clase PruebaMedica
-    Paciente p = getPaciente(indicePaciente);//obtenemos el paciente por su indice
+        Paciente p = getPaciente(indicePaciente);//obtenemos el paciente por su indice
 
-    if(p!=null && administrativos.isEmpty()){   //si el paciente no es nulo
-        PruebaMedica prueba=new PruebaMedica(fecha, idMedico, causa, tipoPrueba, resultado); //creamos una nueva prueba medica
-        Administrativo administrativo=administrativos.get(0); //obtenemos el primer administrativo de la lista
-        administrativo.asignarPrueba(p, prueba); //asignamos la prueba al paciente
-    }else {
-        vista.mostrarMensaje("No se pude registar la prueba medica ERROR!!");
-    }
+        if(p!=null && !administrativos.isEmpty()){   //si el paciente no es nulo y hay administrativos
+            PruebaMedica prueba=new PruebaMedica(fecha, idMedico, causa, tipoPrueba, resultado); //creamos una nueva prueba medica
+            Administrativo administrativo=administrativos.get(0); //obtenemos el primer administrativo de la lista
+            administrativo.asignarPrueba(p, prueba); //asignamos la prueba al paciente
+        }else {
+            vista.mostrarMensaje("No se pude registar la prueba medica!!");
+        }
     }
 
     //metodo para mostrar el historial medico de un paciente
