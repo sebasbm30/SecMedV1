@@ -1,11 +1,9 @@
 package Controlador;
 
-import Modelo.Administrativo;
-import Modelo.Especialidad;
-import Modelo.Medico;
-import Modelo.Paciente;
+import Modelo.*;
 import Vista.Vista;    //importamos la clase vista para poder usarla en el controlador esto me daba error si no lo ponia
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -98,7 +96,33 @@ public class Controlador {   //va hacer el intermediario entre la vista y el mod
         }
     }
 
+    //metodo para registrar prueba medica
+    public void registrarPruebaMedia(int indicePaciente, LocalDate fecha, String idMedico, String causa, TipoPrueba tipoPrueba,
+                                     String resultado){  //atributos que hereda de la clase PruebaMedica
+    Paciente p = getPaciente(indicePaciente);//obtenemos el paciente por su indice
 
+    if(p!=null && administrativos.isEmpty()){   //si el paciente no es nulo
+        PruebaMedica prueba=new PruebaMedica(fecha, idMedico, causa, tipoPrueba, resultado); //creamos una nueva prueba medica
+        Administrativo administrativo=administrativos.get(0); //obtenemos el primer administrativo de la lista
+        administrativo.asignarPrueba(p, prueba); //asignamos la prueba al paciente
+    }else {
+        vista.mostrarMensaje("No se pude registar la prueba medica ERROR!!");
+    }
+    }
 
+    //metodo para mostrar el historial medico de un paciente
+    public void mostrarHistorialMedico(int indicePaciente){
+        Paciente p = getPaciente(indicePaciente); //obtenemos el paciente por su indice
+        if(p!=null){   //si el paciente no es nulo
+            vista.mostrarHistorial(p.getHistorial());
+        }else {
+            vista.mostrarMensaje("Paciente no encontrado.");
+        }
+    }
 
+    //metodo get vista (lo ultilizara el main para acceder a la vista desde el controlador)
+
+    public Vista getVista() {
+        return vista;
+    }
 }
