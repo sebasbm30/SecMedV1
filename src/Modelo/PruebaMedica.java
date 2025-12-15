@@ -3,6 +3,17 @@ package Modelo;
 import java.time.LocalDate;
 
 public class PruebaMedica extends EntradaHistorial {
+    public enum TipoPrueba {
+        SANGRE,
+        ORINA,
+        RADIODIAGNOSTICO,
+        BIOPSIA,
+        ELECTROCARDIOGRAMA,
+        RESONANCIA,
+        ANALISIS_SANGRE,
+        TAC
+    }
+
     private TipoPrueba tipoPrueba;
     private String resultado;
 
@@ -44,3 +55,4 @@ public class PruebaMedica extends EntradaHistorial {
                 '}';
     }
 }
+

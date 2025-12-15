@@ -1,141 +1,60 @@
 package Controlador;
 
 import Modelo.*;
-import Vista.Vista;    //importamos la clase vista para poder usarla en el controlador esto me daba error si no lo ponia
-
+import Vista.Vista;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class Controlador {   //va hacer el intermediario entre la vista y el modelo
+/**
+ * Clase Controlador
+ * Controla el flujo del programa
+ */
+public class Controlador {
 
-    private Vista vista;          //atributo vista para mostrar la informacion al usuario
-    private List<Paciente> pacientes; //atributo lista de pacientes para almacenar pacientes
-    private List<Medico> medicos;       //atributo lista de medicos para almacenar medicos
-    private List<Administrativo> administrativos; //atributo lista de administrativos para almacenar administrativos
+    /**
+     * Vista para mostrar mensajes
+     */
+    Vista vista = new Vista();
 
-    //contructor del controlador
-    public Controlador() {
-        this.vista = new Vista();  //inicializamos la vista
-        this.pacientes = new ArrayList<>(); //inicializamos la lista de pacientes
-        this.medicos = new ArrayList<>();   //inicializamos la lista de medicos
-        this.administrativos = new ArrayList<>(); //inicializamos la lista de administrativos
-    }
+    /**
+     * Método iniciar
+     * Ejecuta todas las pruebas del sistema
+     */
+    public void iniciar() {
+        vista.imprimir("Pruebas v1.0 - Version Simple");
 
-    //metodo que tiene la funcion de agregar un paciente
-    public void crearPaciente(String nombre, String dni, String email, String direccion) {
-        Paciente p = new Paciente(nombre, dni, email, direccion); //creamos un nuevo paciente
-        pacientes.add(p); //agregamos el paciente a la lista de pacientes
-        vista.mostrarMensaje("Paciente creado correctamente"); //mostramos un mensaje de que el paciente se ha creado correctamente
-    }
+        // Crear Usuarios
+        Medico m1 = new Medico("Dr. Pedraza", "11111111H", "pedraza@secmed.com", "Calle Hospital 10",
+                "drpedraza", "hash123", "salt123", "MED-001", Especialidad.CARDIOLOGIA);
 
-    //metodo que tiene la funcion de crear un medico
-    public void crearMedico(String nombre, String dni, String email, String direccion,
-                            String username, String passwordHash, String salt,
-                            String numeroColegiado, Especialidad especialidad) {
-        Medico m = new Medico(nombre, dni, email, direccion, username, passwordHash, salt, numeroColegiado, especialidad); //creamos un nuevo medico
-        medicos.add(m);
-        vista.mostrarMensaje("Medico: " + nombre);
-        vista.mostrarMedico(m); //mostramos un mensaje de que el medico se ha creado correctamente
-    }
+        Administrativo admin1 = new Administrativo("Admin Sofia", "22222222A", "sofia@secmed.com", "Oficina 2",
+                "sofia", "hash456", "salt456", "ADM-001");
 
-    //metodo que tiene la funcion de crear un administrativo
-    public void crearAdministrativo(String nombre, String dni, String email, String direccion,
-                                    String username, String passwordHash, String salt, String idAdministrativo) {
-        Administrativo a = new Administrativo(nombre, dni, email, direccion, username, passwordHash, salt, idAdministrativo); //creamos un nuevo administrativo
-        administrativos.add(a);
-        vista.mostrarMensaje("Administrativo creado ");
-        vista.mostrarAdministrativo(a); //mostramos un mensaje de que el administrativo se ha creado correctamente
-    }
+        vista.imprimir("---Usuarios Creados---");
+        vista.imprimir(m1.toString());
+        vista.imprimir(admin1.toString());
 
-    //metodo para obtener un paciente por su indice
-    public Paciente getPaciente(int indice) {
-        if (indice >= 0 && indice < pacientes.size()) {    //verificamos que el indice sea valido
-            return pacientes.get(indice);           //retun, devolvemos el paciente en la posicion del indice
-        }
-        return null;     //en caso de que el indice no sea valido devolvemos null
-    }
+        // Crear Paciente
+        Paciente p1 = new Paciente("Maria Garcia", "33333333B", "maria@gmail.com", "Calle Mayor 5");
+        vista.imprimir("---Paciente Creado---");
+        vista.imprimir(p1.toString());
 
-    //metodo para obtener un medico por su indice
-    public Medico getMedico(int indice) {
-        if (indice >= 0 && indice < medicos.size()) {    //verificamos que el indice sea valido
-            return medicos.get(indice);           //retun, devolvemos el medico en la posicion del indice
-        }
-        return null;     //en caso de que el indice no sea valido devolvemos null
-    }
+        // Asignar medico a paciente
+        admin1.asignarMedico(p1, m1);
+        vista.imprimir("---Medico Asignado---");
+        vista.imprimir(p1.toString());
 
-    //metodo para obtener un administrativo por su indice
-    public Administrativo getAdministrativo(int indice) {
-        if (indice >= 0 && indice < administrativos.size()) {    //verificamos que el indice sea valido
-            return administrativos.get(indice);           //retun, devolvemos el administrativo en la posicion del indice
-        }
-        return null;     //en caso de que el indice no sea valido devolvemos null
-    }
+        // Pruebas de historial
+        Receta r1 = new Receta(LocalDate.now().minusDays(2), m1.getNumeroColegiado(), "Hipertension",
+                new ArrayList<>(Arrays.asList("Atenolol 50mg", "Agua")));
 
-    //metodo para saber la lista de pacientes
-    public void listarPacientes(){
-        if(pacientes.isEmpty()){   //si la lista de pacientes esta vacia
-            vista.mostrarMensaje("No aparecen pacientes registrados.");   //mostramos un mensaje de que no hay pacientes registrados
-        } else {      //si hay pacientes registrados
-            vista.mostrarMensaje("Lista de Pacientes:"); //mostramos un mensaje de que hay pacientes registrados
-            for (Paciente p : pacientes) {  //recorremos la lista de pacientes medieante un for each
-                vista.mostrarPaciente(p); //mostramos el paciente
-            }
-        }
-    }
+        PruebaMedica pm1 = new PruebaMedica(LocalDate.now().minusDays(2), m1.getNumeroColegiado(),
+                "Chequeo general", PruebaMedica.TipoPrueba.ELECTROCARDIOGRAMA, "Normal");
 
-    //metodo para saber la lista de medicos
-    public void listarMedicos() {
-        if (medicos.isEmpty()) {   //si la lista de medicos esta vacia
-            vista.mostrarMensaje("No aparecen medicos registrados.");   //mostramos un mensaje de que no hay medicos registrados
-        } else {      //si hay medicos registrados
-            vista.mostrarMensaje("Lista de Medicos:"); // mostramos un mensaje de que hay medicos registrados
-            for (Medico m : medicos) {  //recorremos la lista de medicos medieante un for each
-                vista.mostrarMedico(m); //mostramos los medicos
-            }
-        }
-    }
-
-    //metodo para asignar un medico a un paciente
-    public void asignarMedicoAPaciente(int indicePaciente, int indiceMedico) {
-        Paciente p = getPaciente(indicePaciente);  //obtenemos el paciente
-        Medico m = getMedico(indiceMedico);  //obtenemos el medico
-
-        if(p != null && m != null && !administrativos.isEmpty()) {  //si existen ambos
-            Administrativo admin = administrativos.get(0);  //obtenemos el primer administrativo
-            admin.asignarMedico(p, m);  //el administrativo asigna el medico al paciente
-        } else {
-            vista.mostrarMensaje("EL Paciente, medico o administrativo no se encontraron");
-        }
-    }
-
-    //metodo para registrar prueba medica
-    public void registrarPruebaMedia(int indicePaciente, LocalDate fecha, String idMedico, String causa, TipoPrueba tipoPrueba,
-                                     String resultado){  //atributos que hereda de la clase PruebaMedica
-        Paciente p = getPaciente(indicePaciente);//obtenemos el paciente por su indice
-
-        if(p!=null && !administrativos.isEmpty()){   //si el paciente no es nulo y hay administrativos
-            PruebaMedica prueba=new PruebaMedica(fecha, idMedico, causa, tipoPrueba, resultado); //creamos una nueva prueba medica
-            Administrativo administrativo=administrativos.get(0); //obtenemos el primer administrativo de la lista
-            administrativo.asignarPrueba(p, prueba); //asignamos la prueba al paciente
-        }else {
-            vista.mostrarMensaje("No se pude registar la prueba medica!!");
-        }
-    }
-
-    //metodo para mostrar el historial medico de un paciente
-    public void mostrarHistorialMedico(int indicePaciente){
-        Paciente p = getPaciente(indicePaciente); //obtenemos el paciente por su indice
-        if(p!=null){   //si el paciente no es nulo
-            vista.mostrarHistorial(p.getHistorial());
-        }else {
-            vista.mostrarMensaje("Paciente no encontrado.");
-        }
-    }
-
-    //metodo get vista (lo ultilizara el main para acceder a la vista desde el controlador)
-
-    public Vista getVista() {
-        return vista;
+        vista.imprimir("---Historial Medico---");
+        p1.getHistorial().agregarEntrada(r1);
+        admin1.asignarPrueba(p1, pm1);
+        vista.imprimir(p1.getHistorial().toString());
     }
 }
