@@ -9,7 +9,7 @@ import Controlador.Controlador;
 public class Main {
 
     /**
-     * Método main
+     * metodo main
      * Crea el controlador e inicia el programa
      */
     public static void main(String[] args) {

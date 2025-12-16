@@ -18,11 +18,11 @@ public class Controlador {
     Vista vista = new Vista();
 
     /**
-     * Método iniciar
+     * metodo iniciar
      * Ejecuta todas las pruebas del sistema
      */
     public void iniciar() {
-        vista.imprimir("Pruebas v1.0 - Version Simple");
+        vista.imprimir("PRUEBAS DEL SISTEMA DE GESTIÓN MÉDICA");
 
         // Crear Usuarios
         Medico m1 = new Medico("Dr. Pedraza", "11111111H", "pedraza@secmed.com", "Calle Hospital 10",
